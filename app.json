@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "meals-to-go-new",
-    "slug": "meals-to-go-new",
+    "name": "meals-to-go",
+    "slug": "meals-to-go",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,9 +13,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
