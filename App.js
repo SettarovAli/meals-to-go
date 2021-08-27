@@ -49,7 +49,7 @@ const screenOptions = ({ route }) => {
   const iconName = TAB_ICON[route.name];
   return {
     tabBarIcon: tabBarIcon(iconName),
-    tabBarActiveTintColor: "tomato",
+    tabBarActiveTintColor: "orangered",
     tabBarInactiveTintColor: "gray",
   };
 };
