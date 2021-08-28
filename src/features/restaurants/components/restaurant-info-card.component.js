@@ -6,6 +6,7 @@ import { Spacer } from "../../../components/spacer/spacer.component";
 import { Text } from "../../../components/typography/text.component";
 import star from "../../../../assets/star";
 import open from "../../../../assets/open";
+
 import {
   RestaurantCard,
   RestaurantCardCover,
@@ -17,7 +18,7 @@ import {
   SectionEnd,
 } from "./restaurant-info-card.styles";
 
-const RestaurantInfoCard = ({ restaurant = {} }) => {
+export const RestaurantInfoCard = ({ restaurant = {} }) => {
   const {
     name = "Some restaurant",
     icon = "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/lodging-71.png",
@@ -28,6 +29,7 @@ const RestaurantInfoCard = ({ restaurant = {} }) => {
     isOpenNow = true,
     rating = 4.5,
     isClosedTemporarily = true,
+    placeId,
   } = restaurant;
 
   const ratingArray = Array.from(new Array(Math.round(rating)));
@@ -41,7 +43,12 @@ const RestaurantInfoCard = ({ restaurant = {} }) => {
           <Section>
             <Rating>
               {ratingArray.map((_, i) => (
-                <SvgXml key={i} xml={star} width={20} height={20} />
+                <SvgXml
+                  key={`star-${placeId}-${i}`}
+                  xml={star}
+                  width={20}
+                  height={20}
+                />
               ))}
             </Rating>
             <SectionEnd>
@@ -61,5 +68,3 @@ const RestaurantInfoCard = ({ restaurant = {} }) => {
     </RestaurantCard>
   );
 };
-
-export default RestaurantInfoCard;

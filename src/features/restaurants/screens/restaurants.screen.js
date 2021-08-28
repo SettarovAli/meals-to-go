@@ -1,17 +1,14 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import styled from "styled-components/native";
-import { View, FlatList } from "react-native";
-import { Spacer } from "../../../components/spacer/spacer.component";
+import { FlatList } from "react-native";
 import { ActivityIndicator, Colors } from "react-native-paper";
 
-import { Searchbar } from "react-native-paper";
-import RestaurantInfoCard from "../components/restaurant-info-card.component";
 import { SafeArea } from "../../../components/utility/safe-area.component";
-import { RestaurantContext } from "../../../services/restaurants/restaurants.context";
+import { Spacer } from "../../../components/spacer/spacer.component";
+import { RestaurantInfoCard } from "../components/restaurant-info-card.component";
+import { Search } from "../components/search.component";
 
-const SearchContainer = styled(View)`
-  padding: ${(props) => props.theme.space[3]};
-`;
+import { RestaurantContext } from "../../../services/restaurants/restaurants.context";
 
 const RestaurantList = styled(FlatList).attrs({
   contentContainerStyle: {
@@ -19,7 +16,7 @@ const RestaurantList = styled(FlatList).attrs({
   },
 })``;
 
-const Loading = styled.ActivityIndicator`
+const Loading = styled(ActivityIndicator)`
   margin-left: -25px;
 `;
 
@@ -29,12 +26,8 @@ const LoadingContainer = styled.View`
   left: 50%;
 `;
 
-const RestaurantsScreen = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-
-  const onChangeSearch = (query) => setSearchQuery(query);
-
-  const { restaurants, isLoading, error } = useContext(RestaurantContext);
+export const RestaurantsScreen = () => {
+  const { restaurants, isLoading } = useContext(RestaurantContext);
 
   return (
     <SafeArea>
@@ -43,13 +36,7 @@ const RestaurantsScreen = () => {
           <Loading size={50} animating={true} color={Colors.blue800} />
         </LoadingContainer>
       )}
-      <SearchContainer>
-        <Searchbar
-          placeholder="Search"
-          onChangeText={onChangeSearch}
-          value={searchQuery}
-        />
-      </SearchContainer>
+      <Search />
       <RestaurantList
         data={restaurants}
         renderItem={({ item }) => {
@@ -64,5 +51,3 @@ const RestaurantsScreen = () => {
     </SafeArea>
   );
 };
-
-export default RestaurantsScreen;
