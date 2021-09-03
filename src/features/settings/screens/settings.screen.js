@@ -1,35 +1,50 @@
-import React, { useContext } from "react";
-import styled from "styled-components/native";
+import React, { useContext, useState } from "react";
 import { List, Avatar } from "react-native-paper";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useFocusEffect } from "@react-navigation/native";
 
 import { Text } from "../../../components/typography/text.component";
 import { Spacer } from "../../../components/spacer/spacer.component";
+import {
+  SettingsContainer,
+  SettingsItem,
+  AvatarContainer,
+} from "../components/settings.styles";
 
 import { AuthenticationContext } from "../../../services/authentication/authentication.context";
 
-const SettingsItem = styled(List.Item)`
-  padding: ${(props) => props.theme.space[3]};
-`;
-
-const AvatarContainer = styled.View`
-  align-items: center;
-`;
-
-const SettingsContainer = styled.View`
-  flex: 1;
-  padding: 15px;
-  background-color: white;
-`;
-
 export const SettingsScreen = ({ navigation }) => {
+  const [photo, setPhoto] = useState(null);
+
   const { onLogout, user } = useContext(AuthenticationContext);
+
+  const getProfilePicture = async () => {
+    const photoUri = await AsyncStorage.getItem(`@photo-${user.uid}`);
+    setPhoto(photoUri);
+  };
+
+  useFocusEffect(() => {
+    getProfilePicture();
+  });
 
   return (
     <SettingsContainer>
       <AvatarContainer>
-        <Avatar.Icon size={120} icon="human" backgroundColor="#2182BD" />
+        {!photo && (
+          <Avatar.Icon size={120} icon="human" backgroundColor="#2182BD" />
+        )}
+        {photo && (
+          <Avatar.Image
+            source={{ uri: photo }}
+            size={120}
+            icon="human"
+            backgroundColor="#2182BD"
+          />
+        )}
         <Spacer position="top" size="large">
-          <Text variant="label">{user.email}</Text>
+          <Text variant="label" center>
+            {user.email}
+          </Text>
         </Spacer>
       </AvatarContainer>
 
@@ -39,6 +54,11 @@ export const SettingsScreen = ({ navigation }) => {
           description="View your favourites"
           left={(props) => <List.Icon {...props} color="black" icon="heart" />}
           onPress={() => navigation.navigate("Favourites")}
+        />
+        <SettingsItem
+          title="Change photo"
+          left={(props) => <List.Icon {...props} color="black" icon="camera" />}
+          onPress={() => navigation.navigate("Camera")}
         />
         <SettingsItem
           title="Logout"
