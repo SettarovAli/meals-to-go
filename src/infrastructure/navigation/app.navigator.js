@@ -6,6 +6,8 @@ import { RestaurantContextProvider } from "../../../src/services/restaurants/res
 import { LocationContextProvider } from "../../../src/services/location/location.context";
 import { FavouritesContextProvider } from "../../../src/services/favourites/favourites.context";
 
+import { colors } from "../theme/colors";
+
 import { RestaurantsNavigator } from "./restaurants.navigator";
 import { SettingsNavigator } from "./settings.navigator";
 import { MapScreen } from "../../features/map/screens/map.screen";
@@ -27,8 +29,8 @@ const screenOptions = ({ route }) => {
   const iconName = TAB_ICON[route.name];
   return {
     tabBarIcon: tabBarIcon(iconName),
-    tabBarActiveTintColor: "orangered",
-    tabBarInactiveTintColor: "gray",
+    tabBarActiveTintColor: colors.brand.primary,
+    tabBarInactiveTintColor: colors.brand.muted,
     headerShown: false,
   };
 };

@@ -10,6 +10,7 @@ import {
   SettingsItem,
   AvatarContainer,
 } from "../components/settings.styles";
+import { colors } from "../../../infrastructure/theme/colors";
 
 import { AuthenticationContext } from "../../../services/authentication/authentication.context";
 
@@ -31,16 +32,13 @@ export const SettingsScreen = ({ navigation }) => {
     <SettingsContainer>
       <AvatarContainer>
         {!photo && (
-          <Avatar.Icon size={120} icon="human" backgroundColor="#2182BD" />
-        )}
-        {photo && (
-          <Avatar.Image
-            source={{ uri: photo }}
+          <Avatar.Icon
             size={120}
             icon="human"
-            backgroundColor="#2182BD"
+            backgroundColor={colors.brand.primary}
           />
         )}
+        {photo && <Avatar.Image source={{ uri: photo }} size={120} />}
         <Spacer position="top" size="large">
           <Text variant="label" center>
             {user.email}
@@ -52,18 +50,26 @@ export const SettingsScreen = ({ navigation }) => {
         <SettingsItem
           title="Favourites"
           description="View your favourites"
-          left={(props) => <List.Icon {...props} color="black" icon="heart" />}
+          left={(props) => (
+            <List.Icon {...props} color={colors.brand.primary} icon="heart" />
+          )}
           onPress={() => navigation.navigate("Favourites")}
         />
         <SettingsItem
           title="Change photo"
-          left={(props) => <List.Icon {...props} color="black" icon="camera" />}
+          left={(props) => (
+            <List.Icon {...props} color={colors.brand.primary} icon="camera" />
+          )}
           onPress={() => navigation.navigate("Camera")}
         />
         <SettingsItem
           title="Logout"
           left={(props) => (
-            <List.Icon {...props} color="black" icon="exit-to-app" />
+            <List.Icon
+              {...props}
+              color={colors.brand.primary}
+              icon="exit-to-app"
+            />
           )}
           onPress={onLogout}
         />

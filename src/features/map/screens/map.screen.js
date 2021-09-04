@@ -7,6 +7,7 @@ import { Search } from "../components/search.component";
 
 import { RestaurantContext } from "../../../services/restaurants/restaurants.context";
 import { LocationContext } from "../../../services/location/location.context";
+import { colors } from "../../../infrastructure/theme/colors";
 
 const Map = styled(MapView)`
   height: 100%;
@@ -49,6 +50,7 @@ export const MapScreen = ({ navigation }) => {
                 longitude: restaurant.geometry.location.lng,
               }}
               description={restaurant.vicinity}
+              pinColor={colors.brand.primary}
             >
               <MapView.Callout
                 onPress={() =>
